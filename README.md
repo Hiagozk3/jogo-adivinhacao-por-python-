@@ -1,3 +1,4 @@
-# jogo-adivinhacao-por-python-
-Teste simples utilizando linguagem Python para um futuro projeto da minha faculdade de ADS, com objetivo de aprimorar meus conhecimentos na área e na linguagem utilizada.
-Código feito com ajuda de Inteligência Artificial (Caso apareça um função que eu não conheça, busco pesquisar pra saber mais sobre)
+Este projeto foi desenvolvido como parte da avaliação A3 do curso de Análise e Desenvolvimento de Sistemas, com o objetivo de aplicar na prática os conceitos estudados ao longo do semestre, como programação orientada a objetos, estruturas condicionais, funções e desenvolvimento de interfaces gráficas.
+A proposta consiste em um jogo de adivinhação interativo desenvolvido em Python, utilizando a biblioteca tkinter para a construção da interface. O computador sorteia um número entre 1 e 100, e o jogador deve tentar descobri-lo com o menor número de tentativas possível.
+Durante o desenvolvimento, buscamos ir além dos requisitos básicos, incorporando funcionalidades como sistema de dicas por faixas de números, contador de tentativas e um menu de acessibilidade com modo de alto contraste e modo daltônico, visando tornar a aplicação mais inclusiva e acessível a diferentes perfis de usuários.
+O projeto representa a consolidação do aprendizado adquirido ao longo do semestre, demonstrando a capacidade de desenvolver uma aplicação funcional, organizada e com preocupação com a experiência do usuário.
