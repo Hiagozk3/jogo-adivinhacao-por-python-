@@ -14,4 +14,4 @@ class JogoAdivinhacao:
         self.numero_secreto = random.randint(1, 100) # Gera um número aleatório entre 1 e 100
         self.tentativas = 0 # Contador de tentativas do jogador
         self.canvas_estrelas = None # Variável para armazenar o canvas de estrelas do tema espacial, inicialmente vazia
-        self.fundo_espacial = None # Variável para armazenar a imagem de fundo do tema espacial, inicialmente vazia
+        self.fundo_espacial = None # Variável para armazenar a imagem de fundo do tema espacial, inicialmente vaziakklk
