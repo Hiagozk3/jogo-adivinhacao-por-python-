@@ -200,4 +200,55 @@ class TelaBoasVindas:
             fg="#45475a"
         )
         self.label_rodape.pack(pady=(10, 0))
+
+class JogoAdivinhacao:
+
+    # =========================================================================
+    #  CONSTRUTOR
+    # =========================================================================
+    def __init__(self, master, nome_jogador=""):
+
+        self.master = master
+
+        # Se o jogador deixou o campo em branco, usa "Jogador" como padrão
+        self.nome_jogador = nome_jogador if nome_jogador else "Jogador"
+
+        # ---------------------------------------------------------------------
+        #  CONFIGURAÇÃO DA JANELA
+        # ---------------------------------------------------------------------
+        self.master.title("AdivinhaFG")
+        self.master.configure(bg="#1e1e2e")
+
+        # ---------------------------------------------------------------------
+        #  VARIÁVEIS DO JOGO
+        # ---------------------------------------------------------------------
+        self.numero_secreto  = random.randint(1, 100) # número que o jogador deve adivinhar
+        self.tentativas      = 0                       # contador de tentativas começa em zero
+        self.canvas_estrelas = None  # referência ao Label do fundo espacial (None = inativo)
+        self.fundo_espacial  = None  # referência à imagem gerada pelo Pillow
+
+        # ---------------------------------------------------------------------
+        #  CHAMADA DOS MÉTODOS DE CONSTRUÇÃO
+        # ---------------------------------------------------------------------
+        self.criar_menus()
+        self.criar_barra_superior()
+        self.criar_interface_principal()
+
+    # =========================================================================
+    #  CRIAÇÃO DOS MENUS SUSPENSOS
+    #  tearoff=0 impede que o menu se desprenda como uma janela separada.
+    # =========================================================================
+
+    def criar_menus(self):
+
+        # Menu de acessibilidade (alto contraste, daltônico, normal)
+        self.menu_config = tk.Menu(self.master, tearoff=0)
+        self.menu_config.add_command(label="Alto Contraste", command=self.modo_alto_contraste)
+        self.menu_config.add_command(label="Daltônico",      command=self.modo_daltonico)
+        self.menu_config.add_command(label="Normal",         command=self.modo_normal)
+
+        # Menu de temas visuais (espacial, normal)
+        self.menu_temas = tk.Menu(self.master, tearoff=0)
+        self.menu_temas.add_command(label="Espacial", command=self.tema_espacial)
+        self.menu_temas.add_command(label="Normal",   command=self.modo_normal)
         
