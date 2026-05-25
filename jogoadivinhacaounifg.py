@@ -252,3 +252,53 @@ class JogoAdivinhacao:
         self.menu_temas.add_command(label="Espacial", command=self.tema_espacial)
         self.menu_temas.add_command(label="Normal",   command=self.modo_normal)
         
+# =========================================================================
+    #  BARRA SUPERIOR
+    #  fill="x" faz o frame ocupar toda a largura da janela.
+    #  side="top" o fixa no topo.
+    # =========================================================================
+
+    def criar_barra_superior(self):
+
+        self.frame_topo = tk.Frame(self.master, bg="#181825", pady=8)
+        self.frame_topo.pack(fill="x", side="top")
+
+        # Nome do projeto à esquerda da barra
+        self.label_topo = tk.Label(
+            self.frame_topo,
+            text="AdivinhaFG  |  Jogo de Adivinhação",
+            font=("Consolas", 11),
+            bg="#181825",
+            fg="#6c6f85"
+        )
+        self.label_topo.pack(side="left", padx=15)
+
+        # Botão que abre o menu de acessibilidade (à direita)
+        self.botao_config = tk.Button(
+            self.frame_topo,
+            text="Acessibilidade",
+            command=self.abrir_menu_acessibilidade,
+            bg="#313244",
+            fg="#cdd6f4",
+            font=("Consolas", 10),
+            relief="flat",
+            padx=10,
+            pady=4,
+            cursor="hand2"
+        )
+        self.botao_config.pack(side="right", padx=15)
+
+        # Botão que abre o menu de temas (à direita, ao lado do anterior)
+        self.botao_temas = tk.Button(
+            self.frame_topo,
+            text="Temas",
+            command=self.abrir_menu_temas,
+            bg="#313244",
+            fg="#cdd6f4",
+            font=("Consolas", 10),
+            relief="flat",
+            padx=10,
+            pady=4,
+            cursor="hand2"
+        )
+        self.botao_temas.pack(side="right", padx=15)
