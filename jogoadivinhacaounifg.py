@@ -302,3 +302,69 @@ class JogoAdivinhacao:
             cursor="hand2"
         )
         self.botao_temas.pack(side="right", padx=15)
+        
+ # =========================================================================
+    #  INTERFACE PRINCIPAL
+    #  expand=True faz o frame_central crescer e centralizar na janela.
+    # =========================================================================
+
+    def criar_interface_principal(self):
+
+        # Frame que contém todo o conteúdo do jogo
+        self.frame_central = tk.Frame(self.master, bg="#1e1e2e")
+        self.frame_central.pack(expand=True)
+
+        # Saudação personalizada com o nome do jogador
+        self.label_saudacao = tk.Label(
+            self.frame_central,
+            text=f"Bem-vindo, {self.nome_jogador}!",
+            font=("Consolas", 16),
+            bg="#1e1e2e",
+            fg="#a6e3a1"  # verde
+        )
+        self.label_saudacao.pack(pady=(30, 0))
+
+        # Título principal
+        self.label_titulo = tk.Label(
+            self.frame_central,
+            text="Adivinhe o Número",
+            font=("Consolas", 36, "bold"),
+            bg="#1e1e2e",
+            fg="#cdd6f4"
+        )
+        self.label_titulo.pack(pady=(8, 5))
+
+        # Instrução para o jogador
+        self.label_subtitulo = tk.Label(
+            self.frame_central,
+            text="Um número entre 1 e 100 foi escolhido. Qual é ele?",
+            font=("Consolas", 13),
+            bg="#1e1e2e",
+            fg="#6c6f85"
+        )
+        self.label_subtitulo.pack(pady=(0, 40))
+
+        # Campo onde o jogador digita o número a ser chutado
+        self.entrada_chute = tk.Entry(
+            self.frame_central,
+            font=("Consolas", 22),
+            width=10,
+            justify="center",            # centraliza o texto dentro do campo
+            bg="#313244",
+            fg="#cdd6f4",
+            insertbackground="#cdd6f4",  # cor do cursor de digitação
+            relief="flat",
+            bd=0                         # remove a borda do campo
+        )
+        self.entrada_chute.pack(pady=10, ipady=12) # ipady aumenta a altura interna
+
+        # Pressionar Enter envia o chute sem precisar clicar no botão
+        self.entrada_chute.bind(
+            "<Return>",
+            lambda evento: self.processar_chute()
+        )
+
+        self.entrada_chute.focus() # cursor automático no campo ao abrir o jogo
+
+        # Cria os três botões (Chutar, Dica, Reiniciar)
+        self.criar_botoes()
