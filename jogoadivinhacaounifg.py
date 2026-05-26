@@ -445,3 +445,91 @@ class JogoAdivinhacao:
             cursor="hand2"
         )
         self.botao_reiniciar.pack(side="left", padx=10)
+        # =========================================================================
+    #  LÓGICA PRINCIPAL DO JOGO
+    # =========================================================================
+
+    def processar_chute(self):
+        # Lê o valor digitado, compara com o número secreto e exibe o feedback.
+
+        try:
+            chute = int(self.entrada_chute.get()) # converte o texto digitado para inteiro
+
+            self.tentativas += 1                  # incrementa o contador de tentativas
+            self.entrada_chute.delete(0, tk.END)  # limpa o campo após enviar o chute
+            self.label_tentativas.config(text=f"Tentativas: {self.tentativas}") # atualiza o contador na tela
+
+            # Número fora do intervalo permitido
+            if chute < 1 or chute > 100:
+                self.label_feedback.config(
+                    text="Digite um número entre 1 e 100!",
+                    fg="#f38ba8"  # vermelho
+                )
+
+            # Jogador acertou o número secreto
+            elif chute == self.numero_secreto:
+                messagebox.showinfo(
+                    "Parabéns!",
+                    f" {self.nome_jogador}, você acertou!\n"
+                    f"Número: {self.numero_secreto}\n"
+                    f"Tentativas: {self.tentativas}"
+                )
+                self.label_feedback.config(text="Você ganhou!", fg="#a6e3a1")
+                self.botao_chutar.config(state="disabled") # bloqueia o botão após a vitória
+
+            # Chute foi maior que o número secreto
+            elif chute > self.numero_secreto:
+                self.label_feedback.config(
+                    text="Muito alto! Tente um número menor.",
+                    fg="#89b4fa"
+                )
+
+            # Chute foi menor que o número secreto
+            else:
+                self.label_feedback.config(
+                    text="Muito baixo! Tente um número maior.",
+                    fg="#89b4fa"
+                )
+
+        except ValueError:
+            # Captura o erro caso o jogador digite letras ou caracteres inválidos
+            messagebox.showwarning("Entrada Inválida", "Digite apenas números válidos.")
+
+    # =========================================================================
+    #  REINICIAR JOGO
+    #  Sorteia um novo número e reseta o estado sem fechar a janela.
+    # =========================================================================
+
+    def reiniciar(self):
+
+        self.numero_secreto = random.randint(1, 100) # novo número secreto
+        self.tentativas = 0                           # zera o contador
+        self.entrada_chute.delete(0, tk.END)          # limpa o campo de entrada
+        self.label_feedback.config(text="Jogo reiniciado! Boa sorte.", fg="#89b4fa")
+        self.label_tentativas.config(text="Tentativas: 0")
+        self.botao_chutar.config(state="normal") # reabilita o botão caso estivesse bloqueado pela vitória
+        self.entrada_chute.focus()               # volta o foco para o campo de entrada
+
+    # =========================================================================
+    #  DICA
+    #  Divide o intervalo 1–100 em 5 faixas de 20 números e
+    #  informa em qual delas o número secreto está.
+    # =========================================================================
+
+    def processar_dica(self):
+
+        if self.numero_secreto <= 20:
+            faixa = "1 e 20"
+        elif self.numero_secreto <= 40:
+            faixa = "21 e 40"
+        elif self.numero_secreto <= 60:
+            faixa = "41 e 60"
+        elif self.numero_secreto <= 80:
+            faixa = "61 e 80"
+        else:
+            faixa = "81 e 100"
+
+        self.label_feedback.config(
+            text=f"O número está entre {faixa}",
+            fg="#f9e2af"  # amarelo
+        )
