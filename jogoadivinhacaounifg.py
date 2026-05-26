@@ -368,3 +368,80 @@ class JogoAdivinhacao:
 
         # Cria os três botões (Chutar, Dica, Reiniciar)
         self.criar_botoes()
+
+# Área de feedback — exibe "muito alto", "muito baixo", dicas, vitória, etc.
+        # Começa vazio e é atualizado a cada interação do jogador.
+        self.label_feedback = tk.Label(
+            self.frame_central,
+            text="",
+            font=("Consolas", 14),
+            bg="#1e1e2e",
+            fg="#89b4fa"  # azul claro
+        )
+        self.label_feedback.pack(pady=20)
+
+        # Contador de tentativas — atualizado a cada chute enviado
+        self.label_tentativas = tk.Label(
+            self.frame_central,
+            text="Tentativas: 0",
+            font=("Consolas", 11),
+            bg="#1e1e2e",
+            fg="#6c6f85"  # cor discreta para não distrair
+        )
+        self.label_tentativas.pack(pady=5)
+
+    # =========================================================================
+    #  BOTÕES
+    #  Criados dentro de um frame para ficarem lado a lado na mesma linha.
+    # =========================================================================
+
+    def criar_botoes(self):
+
+        # Frame que agrupa os três botões horizontalmente
+        self.frame_botoes = tk.Frame(self.frame_central, bg="#1e1e2e")
+        self.frame_botoes.pack(pady=20)
+
+        # Botão "Chutar" — verifica o número digitado contra o número secreto
+        self.botao_chutar = tk.Button(
+            self.frame_botoes,
+            text="Chutar!",
+            command=self.processar_chute,
+            bg="#a6e3a1",  # verde claro
+            fg="#1e1e2e",
+            font=("Consolas", 14, "bold"),
+            relief="flat",
+            padx=30,
+            pady=12,
+            cursor="hand2"
+        )
+        self.botao_chutar.pack(side="left", padx=10) # side="left" coloca botões lado a lado
+
+        # Botão "Dica" — revela em qual faixa de 20 o número secreto está
+        self.botao_dica = tk.Button(
+            self.frame_botoes,
+            text="Dica",
+            command=self.processar_dica,
+            bg="#f9e2af",  # amarelo claro
+            fg="#1e1e2e",
+            font=("Consolas", 14, "bold"),
+            relief="flat",
+            padx=30,
+            pady=12,
+            cursor="hand2"
+        )
+        self.botao_dica.pack(side="left", padx=10)
+
+        # Botão "Reiniciar" — zera o jogo e sorteia um novo número
+        self.botao_reiniciar = tk.Button(
+            self.frame_botoes,
+            text="↺ Reiniciar",
+            command=self.reiniciar,
+            bg="#313244",  # cor neutra para não competir com os outros botões
+            fg="#cdd6f4",
+            font=("Consolas", 14),
+            relief="flat",
+            padx=30,
+            pady=12,
+            cursor="hand2"
+        )
+        self.botao_reiniciar.pack(side="left", padx=10)
