@@ -500,7 +500,43 @@ class JogoAdivinhacao:
     #  REINICIAR JOGO
     #  Sorteia um novo número e reseta o estado sem fechar a janela.
     # =========================================================================
+
+
+
+    def reiniciar(self):
+
+        self.numero_secreto = random.randint(1, 100) # novo número secreto
+        self.tentativas = 0                           # zera o contador
+        self.entrada_chute.delete(0, tk.END)          # limpa o campo de entrada
+        self.label_feedback.config(text="Jogo reiniciado! Boa sorte.", fg="#89b4fa")
+        self.label_tentativas.config(text="Tentativas: 0")
+        self.botao_chutar.config(state="normal") # reabilita o botão caso estivesse bloqueado pela vitória
+        self.entrada_chute.focus()               # volta o foco para o campo de entrada
+
     # =========================================================================
+    #  DICA
+    #  Divide o intervalo 1–100 em 5 faixas de 20 números e
+    #  informa em qual delas o número secreto está.
+    # =========================================================================
+
+    def processar_dica(self):
+
+        if self.numero_secreto <= 20:
+            faixa = "1 e 20"
+        elif self.numero_secreto <= 40:
+            faixa = "21 e 40"
+        elif self.numero_secreto <= 60:
+            faixa = "41 e 60"
+        elif self.numero_secreto <= 80:
+            faixa = "61 e 80"
+        else:
+            faixa = "81 e 100"
+
+        self.label_feedback.config(
+            text=f"O número está entre {faixa}",
+            fg="#f9e2af"  # amarelo
+        )
+# =========================================================================
     #  MENUS
     #  winfo_rootx/y retorna a posição do botão na tela.
     #  Somando winfo_height() ao Y, o menu aparece logo abaixo do botão.
@@ -543,38 +579,3 @@ class JogoAdivinhacao:
             draw.ellipse([x, y, x+2, y+2], fill="white") # círculo branco de 2px = estrela
 
         return ImageTk.PhotoImage(imagem) # converte para formato compatível com tkinter
-
-
-    def reiniciar(self):
-
-        self.numero_secreto = random.randint(1, 100) # novo número secreto
-        self.tentativas = 0                           # zera o contador
-        self.entrada_chute.delete(0, tk.END)          # limpa o campo de entrada
-        self.label_feedback.config(text="Jogo reiniciado! Boa sorte.", fg="#89b4fa")
-        self.label_tentativas.config(text="Tentativas: 0")
-        self.botao_chutar.config(state="normal") # reabilita o botão caso estivesse bloqueado pela vitória
-        self.entrada_chute.focus()               # volta o foco para o campo de entrada
-
-    # =========================================================================
-    #  DICA
-    #  Divide o intervalo 1–100 em 5 faixas de 20 números e
-    #  informa em qual delas o número secreto está.
-    # =========================================================================
-
-    def processar_dica(self):
-
-        if self.numero_secreto <= 20:
-            faixa = "1 e 20"
-        elif self.numero_secreto <= 40:
-            faixa = "21 e 40"
-        elif self.numero_secreto <= 60:
-            faixa = "41 e 60"
-        elif self.numero_secreto <= 80:
-            faixa = "61 e 80"
-        else:
-            faixa = "81 e 100"
-
-        self.label_feedback.config(
-            text=f"O número está entre {faixa}",
-            fg="#f9e2af"  # amarelo
-        )
