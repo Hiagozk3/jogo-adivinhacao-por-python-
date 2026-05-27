@@ -500,6 +500,50 @@ class JogoAdivinhacao:
     #  REINICIAR JOGO
     #  Sorteia um novo número e reseta o estado sem fechar a janela.
     # =========================================================================
+    # =========================================================================
+    #  MENUS
+    #  winfo_rootx/y retorna a posição do botão na tela.
+    #  Somando winfo_height() ao Y, o menu aparece logo abaixo do botão.
+    # =========================================================================
+
+    def abrir_menu_acessibilidade(self):
+        self.menu_config.post(
+            self.botao_config.winfo_rootx(),
+            self.botao_config.winfo_rooty() + self.botao_config.winfo_height()
+        )
+
+    def abrir_menu_temas(self):
+        self.menu_temas.post(
+            self.botao_temas.winfo_rootx(),
+            self.botao_temas.winfo_rooty() + self.botao_temas.winfo_height()
+        )
+
+    # =========================================================================
+    #  FUNÇÕES AUXILIARES DOS TEMAS
+    # =========================================================================
+
+    def remover_canvas(self):
+        # Remove o fundo de estrelas do tema espacial, se estiver ativo.
+        if self.canvas_estrelas is not None:
+            self.canvas_estrelas.destroy()
+            self.canvas_estrelas = None  # reseta a referência para None
+            self.fundo_espacial  = None  # libera a imagem da memória
+
+    def criar_fundo_espacial(self):
+        # Gera uma imagem 1920x1080 com 200 estrelinhas brancas usando Pillow.
+        largura = 1920
+        altura  = 1080
+
+        imagem = Image.new("RGB", (largura, altura), "#00008B") # fundo azul escuro
+        draw   = ImageDraw.Draw(imagem)                          # objeto de desenho
+
+        for _ in range(200):
+            x = random.randint(0, largura)
+            y = random.randint(0, altura)
+            draw.ellipse([x, y, x+2, y+2], fill="white") # círculo branco de 2px = estrela
+
+        return ImageTk.PhotoImage(imagem) # converte para formato compatível com tkinter
+
 
     def reiniciar(self):
 
