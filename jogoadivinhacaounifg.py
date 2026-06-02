@@ -579,3 +579,130 @@ class JogoAdivinhacao:
             draw.ellipse([x, y, x+2, y+2], fill="white") # círculo branco de 2px = estrela
 
         return ImageTk.PhotoImage(imagem) # converte para formato compatível com tkinter
+
+# =========================================================================
+    #  TEMAS E ACESSIBILIDADE
+    #  Cada função reconfigura as cores de todos os widgets.
+    #  remover_canvas() é sempre chamada primeiro para limpar o fundo espacial.
+    # =========================================================================
+
+    def modo_alto_contraste(self):
+        # Fundo preto e elementos brancos para máxima legibilidade.
+        self.remover_canvas()
+        bg = "black"
+
+        self.master.configure(bg=bg)
+        self.frame_topo.configure(bg=bg)
+        self.frame_central.configure(bg=bg)
+        self.frame_botoes.configure(bg=bg)
+
+        self.label_topo.configure(bg=bg, fg="white")
+        self.label_saudacao.configure(bg=bg, fg="white")
+        self.label_titulo.configure(bg=bg, fg="white")
+        self.label_subtitulo.configure(bg=bg, fg="white")
+        self.label_feedback.configure(bg=bg, fg="white")
+        self.label_tentativas.configure(bg=bg, fg="white")
+
+        self.botao_chutar.configure(bg="white", fg="black")
+        self.botao_dica.configure(bg="white", fg="black")
+        self.botao_reiniciar.configure(bg="white", fg="black")
+        self.botao_config.configure(bg="white", fg="black")
+        self.entrada_chute.configure(bg="white", fg="black")
+
+    # -------------------------------------------------------------------------
+
+    def modo_daltonico(self):
+        # Azul e laranja — par de cores distinguível pela maioria dos daltônicos.
+        self.remover_canvas()
+        bg = "#1a1a2e"
+
+        self.master.configure(bg=bg)
+        self.frame_topo.configure(bg="#0f0f1a")
+        self.frame_central.configure(bg=bg)
+        self.frame_botoes.configure(bg=bg)
+
+        self.label_topo.configure(bg="#0f0f1a", fg="orange")
+        self.label_saudacao.configure(bg=bg, fg="orange")
+        self.label_titulo.configure(bg=bg, fg="orange")
+        self.label_subtitulo.configure(bg=bg, fg="orange")
+        self.label_feedback.configure(bg=bg, fg="orange")
+        self.label_tentativas.configure(bg=bg, fg="orange")
+
+        self.botao_chutar.configure(bg="blue", fg="white")
+        self.botao_dica.configure(bg="orange", fg="black")
+        self.botao_reiniciar.configure(bg="blue", fg="white")
+        self.botao_config.configure(bg="blue", fg="white")
+        self.entrada_chute.configure(bg="white", fg="black")
+
+    # -------------------------------------------------------------------------
+
+    def modo_normal(self):
+        # Restaura o tema padrão Catppuccin Mocha.
+        self.remover_canvas()
+        bg = "#1e1e2e"
+
+        self.master.configure(bg=bg)
+        self.frame_topo.configure(bg="#181825")
+        self.frame_central.configure(bg=bg)
+        self.frame_botoes.configure(bg=bg)
+
+        self.label_topo.configure(bg="#181825", fg="#6c6f85")
+        self.label_saudacao.configure(bg=bg, fg="#a6e3a1")
+        self.label_titulo.configure(bg=bg, fg="#cdd6f4")
+        self.label_subtitulo.configure(bg=bg, fg="#6c6f85")
+        self.label_feedback.configure(bg=bg, fg="#89b4fa")
+        self.label_tentativas.configure(bg=bg, fg="#6c6f85")
+
+        self.botao_chutar.configure(bg="#a6e3a1", fg="#1e1e2e")
+        self.botao_dica.configure(bg="#f9e2af", fg="#1e1e2e")
+        self.botao_reiniciar.configure(bg="#313244", fg="#cdd6f4")
+        self.botao_config.configure(bg="#313244", fg="#cdd6f4")
+        self.entrada_chute.configure(bg="#313244", fg="#cdd6f4")
+
+    # -------------------------------------------------------------------------
+
+    def tema_espacial(self):
+        # Fundo azul escuro com estrelinhas geradas pelo Pillow.
+        self.remover_canvas()
+        bg = "#00008B"
+
+        self.master.configure(bg=bg)
+        self.frame_topo.configure(bg="#000066")
+        self.frame_central.configure(bg=bg)
+        self.frame_botoes.configure(bg=bg)
+
+        self.label_topo.configure(bg="#000066", fg="#00ffff")
+        self.label_saudacao.configure(bg=bg, fg="#00ffff")
+        self.label_titulo.configure(bg=bg, fg="#00ffff")
+        self.label_subtitulo.configure(bg=bg, fg="#00ffff")
+        self.label_feedback.configure(bg=bg, fg="#00ffff")
+        self.label_tentativas.configure(bg=bg, fg="#00ffff")
+
+        self.botao_chutar.configure(bg="#4CAF50", fg="white")
+        self.botao_dica.configure(bg="#f9e2af", fg="#1e1e2e")
+        self.botao_reiniciar.configure(bg="#313244", fg="white")
+        self.botao_config.configure(bg="#000066", fg="#00ffff")
+        self.botao_temas.configure(bg="#000066", fg="#00ffff")
+        self.entrada_chute.configure(bg="white", fg="#00008B")
+
+        # Gera a imagem de estrelas e aplica como fundo da janela
+        self.fundo_espacial  = self.criar_fundo_espacial()
+        self.canvas_estrelas = tk.Label(self.master, image=self.fundo_espacial)
+        self.canvas_estrelas.place(x=0, y=0, relwidth=1, relheight=1) # cobre 100% da janela
+
+        self.canvas_estrelas.lower()  # empurra o fundo para trás de todos os outros widgets
+        self.frame_topo.lift()        # traz a barra superior para frente
+        self.frame_central.lift()     # traz o conteúdo do jogo para frente
+
+
+# =============================================================================
+#  PONTO DE ENTRADA
+#  A condição abaixo garante que o código só executa quando o arquivo
+#  é rodado diretamente — não quando é importado por outro arquivo.
+# =============================================================================
+
+if __name__ == "__main__":
+
+    root = tk.Tk()                        # cria a janela principal
+    TelaBoasVindas(root, JogoAdivinhacao) # exibe a tela de boas-vindas
+    root.mainloop()                       # mantém o programa rodando e aguarda interações
