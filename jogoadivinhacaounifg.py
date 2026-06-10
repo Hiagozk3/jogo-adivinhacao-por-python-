@@ -201,6 +201,23 @@ class TelaBoasVindas:
         )
         self.label_rodape.pack(pady=(10, 0))
 
+
+# =========================================================================
+    #  INICIAR JOGO
+    #  Lê o nome digitado, destrói todos os widgets da tela de boas-vindas
+    #  e chama a função que abre o JogoAdivinhacao.
+    # =========================================================================
+
+    def iniciar_jogo(self):
+
+        nome = self.entrada_nome.get().strip() # lê o nome e remove espaços nas bordas
+
+        for widget in self.master.winfo_children(): # percorre todos os widgets da janela
+            widget.destroy()                        # e os destrói antes de abrir o jogo
+
+        self.callback_iniciar(self.master, nome) # abre JogoAdivinhacao passando a janela e o nome
+        
+
 class JogoAdivinhacao:
 
     # =========================================================================
