@@ -354,7 +354,7 @@ class JogoAdivinhacao:
         # Instrução para o jogador
         self.label_subtitulo = tk.Label(
             self.frame_central,
-            text="Um número entre 1 e 100 foi escolhido. Qual é ele?",
+            text="Um número entre 1 e 100 foi escolhido. Qual é este número?",
             font=("Consolas", 13),
             bg="#1e1e2e",
             fg="#6c6f85"
