@@ -269,11 +269,8 @@ class JogoAdivinhacao:
         )
         self.botao_temas.pack(side="right", padx=15)
         
- # =========================================================================
-    #  INTERFACE PRINCIPAL
-    #  expand=True faz o frame_central crescer e centralizar na janela.
-    # =========================================================================
 
+    #  Interface Principal
     def criar_interface_principal(self):
 
         # Frame que contém todo o conteúdo do jogo
@@ -356,11 +353,8 @@ class JogoAdivinhacao:
         )
         self.label_tentativas.pack(pady=5)
 
-    # =========================================================================
-    #  BOTÕES
-    #  Criados dentro de um frame para ficarem lado a lado na mesma linha.
-    # =========================================================================
 
+    #  Botões
     def criar_botoes(self):
 
         # Frame que agrupa os três botões horizontalmente
@@ -380,7 +374,7 @@ class JogoAdivinhacao:
             pady=12,
             cursor="hand2"
         )
-        self.botao_chutar.pack(side="left", padx=10) # side="left" coloca botões lado a lado
+        self.botao_chutar.pack(side="left", padx=10)
 
         # Botão "Dica" — revela em qual faixa de 20 o número secreto está
         self.botao_dica = tk.Button(
@@ -402,7 +396,7 @@ class JogoAdivinhacao:
             self.frame_botoes,
             text="↺ Reiniciar",
             command=self.reiniciar,
-            bg="#313244",  # cor neutra para não competir com os outros botões
+            bg="#313244",  
             fg="#cdd6f4",
             font=("Consolas", 14),
             relief="flat",
@@ -412,15 +406,13 @@ class JogoAdivinhacao:
         )
         self.botao_reiniciar.pack(side="left", padx=10)
         
-    # =========================================================================
-    #  LÓGICA PRINCIPAL DO JOGO
-    # =========================================================================
 
+    #  Lógica Principal do jogo
     def processar_chute(self):
         # Lê o valor digitado, compara com o número secreto e exibe o feedback.
 
         try:
-            chute = int(self.entrada_chute.get()) # converte o texto digitado para inteiro
+            chute = int(self.entrada_chute.get()) 
 
             self.tentativas += 1                  # incrementa o contador de tentativas
             self.entrada_chute.delete(0, tk.END)  # limpa o campo após enviar o chute
@@ -430,7 +422,7 @@ class JogoAdivinhacao:
             if chute < 1 or chute > 100:
                 self.label_feedback.config(
                     text="Digite um número entre 1 e 100!",
-                    fg="#f38ba8"  # vermelho
+                    fg="#f38ba8" 
                 )
 
             # Jogador acertou o número secreto
@@ -462,13 +454,8 @@ class JogoAdivinhacao:
             # Captura o erro caso o jogador digite letras ou caracteres inválidos
             messagebox.showwarning("Entrada Inválida", "Digite apenas números válidos.")
 
-    # =========================================================================
-    #  REINICIAR JOGO
-    #  Sorteia um novo número e reseta o estado sem fechar a janela.
-    # =========================================================================
 
-
-
+    #  Reiniciar o jogo
     def reiniciar(self):
 
         self.numero_secreto = random.randint(1, 100) # novo número secreto
@@ -477,14 +464,10 @@ class JogoAdivinhacao:
         self.label_feedback.config(text="Jogo reiniciado! Boa sorte.", fg="#89b4fa")
         self.label_tentativas.config(text="Tentativas: 0")
         self.botao_chutar.config(state="normal") # reabilita o botão caso estivesse bloqueado pela vitória
-        self.entrada_chute.focus()               # volta o foco para o campo de entrada
+        self.entrada_chute.focus()            
 
-    # =========================================================================
-    #  DICA
-    #  Divide o intervalo 1–100 em 5 faixas de 20 números e
-    #  informa em qual delas o número secreto está.
-    # =========================================================================
 
+    #  Dica
     def processar_dica(self):
 
         if self.numero_secreto <= 20:
@@ -500,7 +483,7 @@ class JogoAdivinhacao:
 
         self.label_feedback.config(
             text=f"O número está entre {faixa}",
-            fg="#f9e2af"  # amarelo
+            fg="#f9e2af" 
         )
       
     # Menus
