@@ -201,7 +201,7 @@ class JogoAdivinhacao:
         self.numero_secreto = random.randint(1, 100)
         self.tentativas = 0
         self.canvas_estrelas = None
-        self.fundo_especial = None 
+        self.fundo_espacial = None 
 
         # Métodos de construções
         self.criar_menus()
