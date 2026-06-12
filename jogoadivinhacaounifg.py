@@ -254,7 +254,7 @@ tk.Menu(self.master, tearoff=0)
 
 self.menu_temas.add_command(label="Espacial", command=self.tema_espacial)
 
-self.menu_temas.add_command(label="Normal", command=self.modo_norma
+self.menu_temas.add_command(label="Normal", command=self.modo_normal)
         
 
         
