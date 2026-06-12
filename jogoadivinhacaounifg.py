@@ -4,42 +4,26 @@ import random # Importa o módulo random para gerar números aleatórios
 from PIL import Image, ImageDraw, ImageTk # Importa a biblioteca Pillow para manipulação de imagens, usada no tema espacial
 
 
-# =============================================================================
-#  CLASSE: TelaBoasVindas
 #  Primeira tela exibida ao abrir o jogo.
-#  Coleta o nome do jogador (opcional) e, ao clicar em iniciar,
-#  destrói seus próprios widgets e carrega o JogoAdivinhacao.
-# =============================================================================
 
 class TelaBoasVindas:
-
-    # =========================================================================
-    #  CONSTRUTOR
-    #  Chamado automaticamente quando TelaBoasVindas() é instanciada.
+    
     #  Recebe a janela principal e a função que abre o jogo.
-    # =========================================================================
     def __init__(self, master, callback_iniciar):
 
-        # ---------------------------------------------------------------------
-        #  REFERÊNCIAS IMPORTANTES
-        # ---------------------------------------------------------------------
+        
+        #  Refêrencias importantes
         self.master = master                     # janela principal do tkinter
         self.callback_iniciar = callback_iniciar # função chamada ao clicar em "Iniciar"
                                                  # (recebe a janela e o nome digitado)
 
-        # ---------------------------------------------------------------------
-        #  CONFIGURAÇÃO DA JANELA
-        # ---------------------------------------------------------------------
+        #  Configurações da janela
         self.master.title("AdivinhaFG")   # texto na barra de título da janela
         self.master.state("zoomed")        # abre a janela já maximizada
-        self.master.configure(bg="#1e1e2e") # cor de fundo (roxo escuro do tema Catppuccin)
+        self.master.configure(bg="#1e1e2e") # cor de fundo
 
-        # ---------------------------------------------------------------------
-        #  FRAME PRINCIPAL
-        #  Container invisível que agrupa todo o conteúdo da tela.
-        #  place(relx=0.5, rely=0.5, anchor="center") o centraliza
-        #  exatamente no meio da janela, independente do tamanho dela.
-        # ---------------------------------------------------------------------
+
+        #  Frame Principal
         self.frame_principal = tk.Frame(
             self.master,
             bg="#1e1e2e"
@@ -51,25 +35,16 @@ class TelaBoasVindas:
             anchor="center"
         )
 
-        # ---------------------------------------------------------------------
-        #  CHAMADA DOS MÉTODOS DE CONSTRUÇÃO DA INTERFACE
-        # ---------------------------------------------------------------------
+ 
+        #  Construções da interface
         self.criar_linha_decorativa()
         self.criar_titulos()
         self.criar_formulario()
         self.criar_rodape()
 
-    # =========================================================================
-    #  MÉTODOS DE CRIAÇÃO DA INTERFACE
-    # =========================================================================
 
+    #  Métodos da criação da interface
     def criar_linha_decorativa(self):
-        # Canvas permite desenhar formas geométricas diretamente.
-        # Aqui cria três retângulos coloridos lado a lado formando
-        # uma barra decorativa que combina com as cores dos botões do jogo:
-        #   verde   - cor do botão "Chutar"
-        #   azul    - cor do feedback
-        #   amarelo - cor do botão "Dica"
 
         self.canvas_linha = tk.Canvas(
             self.frame_principal,
@@ -84,8 +59,6 @@ class TelaBoasVindas:
         self.canvas_linha.create_rectangle(  0, 0, 140, 4, fill="#a6e3a1", outline="") # verde
         self.canvas_linha.create_rectangle(140, 0, 280, 4, fill="#89b4fa", outline="") # azul
         self.canvas_linha.create_rectangle(280, 0, 420, 4, fill="#f9e2af", outline="") # amarelo
-
-    # -------------------------------------------------------------------------
 
     def criar_titulos(self):
         # Ícone decorativo usando emoji
@@ -103,7 +76,7 @@ class TelaBoasVindas:
             text="AdivinhaFG",
             font=("Consolas", 42, "bold"),
             bg="#1e1e2e",
-            fg="#cdd6f4"  # texto claro sobre fundo escuro
+            fg="#cdd6f4" 
         )
         self.label_titulo.pack(pady=(0, 4))
 
@@ -113,11 +86,10 @@ class TelaBoasVindas:
             text="Jogo de Adivinhação",
             font=("Consolas", 14),
             bg="#1e1e2e",
-            fg="#6c6f85"  # cor apagada para criar hierarquia visual
+            fg="#6c6f85"  
         )
         self.label_subtitulo.pack(pady=(0, 40))
 
-    # -------------------------------------------------------------------------
 
     def criar_formulario(self):
         # Frame do formulário com fundo ligeiramente mais escuro
@@ -125,8 +97,8 @@ class TelaBoasVindas:
         self.frame_formulario = tk.Frame(
             self.frame_principal,
             bg="#181825",
-            padx=40,  # espaçamento interno lateral
-            pady=30   # espaçamento interno vertical
+            padx=40, 
+            pady=30  
         )
         self.frame_formulario.pack(pady=(0, 20))
 
@@ -138,7 +110,7 @@ class TelaBoasVindas:
             bg="#181825",
             fg="#6c6f85"
         )
-        self.label_nome.pack(anchor="w", pady=(0, 6)) # anchor="w" alinha à esquerda (West)
+        self.label_nome.pack(anchor="w", pady=(0, 6)) 
 
         # Campo onde o jogador digita o nome
         self.entrada_nome = tk.Entry(
@@ -152,7 +124,7 @@ class TelaBoasVindas:
             relief="flat",
             bd=0                         # remove a borda padrão do campo
         )
-        self.entrada_nome.pack(ipady=10, pady=(0, 6)) # ipady aumenta a altura interna do campo
+        self.entrada_nome.pack(ipady=10, pady=(0, 6)) 
 
         # Pressionar Enter também inicia o jogo (sem precisar clicar no botão)
         self.entrada_nome.bind(
@@ -168,7 +140,7 @@ class TelaBoasVindas:
             text="opcional — pode deixar em branco",
             font=("Consolas", 9, "bold"),
             bg="#181825",
-            fg="#45475a"  # cor bem discreta para não chamar atenção
+            fg="#45475a"  
         )
         self.label_opcional.pack(anchor="w", pady=(0, 20))
 
@@ -176,19 +148,18 @@ class TelaBoasVindas:
         self.botao_iniciar = tk.Button(
             self.frame_formulario,
             text="Iniciar Jogo  →",
-            command=self.iniciar_jogo, # chama iniciar_jogo() ao clicar
+            command=self.iniciar_jogo, 
             bg="#a6e3a1",
             fg="#1e1e2e",
             font=("Consolas", 14, "bold"),
             relief="flat",
             padx=30,
             pady=12,
-            cursor="hand2", # cursor de mãozinha ao passar pelo botão
+            cursor="hand2", 
             width=24
         )
         self.botao_iniciar.pack()
 
-    # -------------------------------------------------------------------------
 
     def criar_rodape(self):
         # Texto pequeno e discreto no rodapé com a instrução do jogo
@@ -202,11 +173,8 @@ class TelaBoasVindas:
         self.label_rodape.pack(pady=(10, 0))
 
 
-# =========================================================================
-    #  INICIAR JOGO
-    #  Lê o nome digitado, destrói todos os widgets da tela de boas-vindas
-    #  e chama a função que abre o JogoAdivinhacao.
-    # =========================================================================
+
+    #  Iniciar o jogo
 
     def iniciar_jogo(self):
 
@@ -218,43 +186,43 @@ class TelaBoasVindas:
         self.callback_iniciar(self.master, nome) # abre JogoAdivinhacao passando a janela e o nome
         
 
+    # Tela Principal do jogo
 class JogoAdivinhacao:
-
-    
     def __init__(self, master, nome_jogador=""):
-
+        
+        # Configurações do nome do jogador, e da janela
         self.master = master
-        self.nome_joador = nome_jogador
-if nome_jogador else "Jogador"
+        self.nome_joador = nome_jogador if nome_jogador else "Jogador"
 
         self.master.title("AdvinhaFG")
-self.master.configure(bg="#1e1e2e")
+        self.master.configure(bg="#1e1e2e")
 
-        self.numero_secreto =
-random.randint(1, 100)
+        # Sorteador do número secreto, e configurações do tema
+        self.numero_secreto = random.randint(1, 100)
         self.tentativas = 0
         self.canvas_estrelas = None
-       self.fundo_especial = None 
+        self.fundo_especial = None 
 
-       self.criar_menus()
-       self.criar_barra_superior()
-       self.criar_interface_principal()
+        # Métodos de construções
+        self.criar_menus()
+        self.criar_barra_superior()
+        self.criar_interface_principal()
 
-def criar_menus(self):
-
+    # Criação dos menus
+    def criar_menus(self):
+        
            # Menu de acessibilidade
-self.menu_config = tk.Menu(self.master, tearoff=0)
-self.menu_config.add_command(label="Alto Contraste", command=self.modo_alto_contraste)
-self.menu_config.add_command(label="Daltônico", command=self.modo_daltonico)
-self.menu_config.add_command(label="Normal", command=self.modo_normal)
+        self.menu_config = tk.Menu(self.master, tearoff=0)
+        self.menu_config.add_command(label="Alto Contraste", command=self.modo_alto_contraste)
+        self.menu_config.add_command(label="Daltônico", command=self.modo_daltonico)
+        self.menu_config.add_command(label="Normal", command=self.modo_normal)
 
             # Menu de temas
-           self.menu_temas = 
-tk.Menu(self.master, tearoff=0)
+        self.menu_temas =  tk.Menu(self.master, tearoff=0)
 
-self.menu_temas.add_command(label="Espacial", command=self.tema_espacial)
+        self.menu_temas.add_command(label="Espacial", command=self.tema_espacial)
 
-self.menu_temas.add_command(label="Normal", command=self.modo_normal)
+        self.menu_temas.add_command(label="Normal", command=self.modo_normal)
         
 
         
