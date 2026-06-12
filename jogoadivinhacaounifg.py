@@ -553,12 +553,10 @@ class JogoAdivinhacao:
             text=f"O número está entre {faixa}",
             fg="#f9e2af"  # amarelo
         )
-# =========================================================================
-    #  MENUS
-    #  winfo_rootx/y retorna a posição do botão na tela.
-    #  Somando winfo_height() ao Y, o menu aparece logo abaixo do botão.
-    # =========================================================================
+      
+    #Menus
 
+    
     def abrir_menu_acessibilidade(self):
         self.menu_config.post(
             self.botao_config.winfo_rootx(),
@@ -571,9 +569,7 @@ class JogoAdivinhacao:
             self.botao_temas.winfo_rooty() + self.botao_temas.winfo_height()
         )
 
-    # =========================================================================
-    #  FUNÇÕES AUXILIARES DOS TEMAS
-    # =========================================================================
+    #Funções dos Temas:
 
     def remover_canvas(self):
         # Remove o fundo de estrelas do tema espacial, se estiver ativo.
