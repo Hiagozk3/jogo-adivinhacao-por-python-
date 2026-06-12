@@ -192,9 +192,9 @@ class JogoAdivinhacao:
         
         # Configurações do nome do jogador, e da janela
         self.master = master
-        self.nome_joador = nome_jogador if nome_jogador else "Jogador"
+        self.nome_jogador = nome_jogador if nome_jogador else "Jogador"
 
-        self.master.title("AdvinhaFG")
+        self.master.title("AdivinhaFG")
         self.master.configure(bg="#1e1e2e")
 
         # Sorteador do número secreto, e configurações do tema
